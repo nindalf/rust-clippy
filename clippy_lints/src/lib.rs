@@ -252,6 +252,7 @@ mod matches;
 mod mem_discriminant;
 mod mem_forget;
 mod mem_replace;
+mod mem_size_of_integer;
 mod methods;
 mod minmax;
 mod misc;
@@ -732,6 +733,7 @@ pub fn register_plugins(store: &mut rustc_lint::LintStore, sess: &Session, conf:
         &mem_replace::MEM_REPLACE_OPTION_WITH_NONE,
         &mem_replace::MEM_REPLACE_WITH_DEFAULT,
         &mem_replace::MEM_REPLACE_WITH_UNINIT,
+        &mem_size_of_integer::MEM_SIZE_OF_INTEGER,
         &methods::BIND_INSTEAD_OF_MAP,
         &methods::CHARS_LAST_CMP,
         &methods::CHARS_NEXT_CMP,
@@ -1043,6 +1045,7 @@ pub fn register_plugins(store: &mut rustc_lint::LintStore, sess: &Session, conf:
     store.register_early_pass(move || box redundant_field_names::RedundantFieldNames::new(msrv));
     store.register_late_pass(move || box checked_conversions::CheckedConversions::new(msrv));
     store.register_late_pass(move || box mem_replace::MemReplace::new(msrv));
+    store.register_late_pass(move || box mem_size_of_integer::MemSizeOfInteger::new(msrv));
     store.register_late_pass(move || box ranges::Ranges::new(msrv));
     store.register_late_pass(move || box from_over_into::FromOverInto::new(msrv));
     store.register_late_pass(move || box use_self::UseSelf::new(msrv));
@@ -2008,6 +2011,7 @@ pub fn register_plugins(store: &mut rustc_lint::LintStore, sess: &Session, conf:
         LintId::of(&floating_point_arithmetic::SUBOPTIMAL_FLOPS),
         LintId::of(&future_not_send::FUTURE_NOT_SEND),
         LintId::of(&let_if_seq::USELESS_LET_IF_SEQ),
+        LintId::of(&mem_size_of_integer::MEM_SIZE_OF_INTEGER),
         LintId::of(&missing_const_for_fn::MISSING_CONST_FOR_FN),
         LintId::of(&mutable_debug_assertion::DEBUG_ASSERT_WITH_MUT_CALL),
         LintId::of(&mutex_atomic::MUTEX_INTEGER),

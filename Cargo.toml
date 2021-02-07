@@ -27,6 +27,12 @@ path = "src/main.rs"
 name = "clippy-driver"
 path = "src/driver.rs"
 
+[target.'cfg(NOT_A_PLATFORM)'.dependencies]
+rustc_driver = { path = "/Users/krishnasr/repos/rust/compiler/rustc_driver" }
+rustc_errors = { path = "/Users/krishnasr/repos/rust/compiler/rustc_errors" }
+rustc_interface = { path = "/Users/krishnasr/repos/rust/compiler/rustc_interface" }
+rustc_middle = { path = "/Users/krishnasr/repos/rust/compiler/rustc_middle" }
+
 [dependencies]
 # begin automatic update
 clippy_lints = { version = "0.1.50", path = "clippy_lints" }
